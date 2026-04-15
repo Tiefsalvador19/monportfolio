@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ange Michel Ouraga — Developer & UI/UX Designer | ANGE TECH SOLUTIONS</title>
+  <meta name="description"
+    content="Portfolio d'Ange Michel Ouraga, fondateur d'ANGE TECH SOLUTIONS. UI/UX Designer & Web Developer basé à Abidjan.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    /* ===== HOME PAGE ===== */
+    #home {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 140px 5% 80px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(255, 255, 255, .02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .02) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse 65% 65% at 50% 50%, black 25%, transparent 100%)
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      animation: orbFloat 14s ease-in-out infinite
+    }
+
+    .orb-1 {
+      width: 500px;
+      height: 500px;
+      top: -100px;
+      left: -100px;
+      background: radial-gradient(circle, rgba(212, 175, 55, .1) 0%, transparent 70%)
+    }
+
+    .orb-2 {
+      width: 400px;
+      height: 400px;
+      bottom: -80px;
+      right: -80px;
+      background: radial-gradient(circle, rgba(123, 97, 255, .08) 0%, transparent 70%);
+      animation-delay: -7s
+    }
+
+    .orb-3 {
+      width: 300px;
+      height: 300px;
+      top: 50%;
+      right: 15%;
+      background: radial-gradient(circle, rgba(0, 229, 255, .05) 0%, transparent 70%);
+      animation-delay: -3s
+    }
+
+    .hero-inner {
+      max-width: 780px;
+      position: relative;
+      z-index: 2
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(212, 175, 55, .08);
+      border: 1px solid rgba(212, 175, 55, .22);
+      padding: 7px 16px;
+      border-radius: 100px;
+      margin-bottom: 28px
+    }
+
+    .hero-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4ade80;
+      animation: pulse 2s ease infinite
+    }
+
+    .hero-name {
+      font-family: var(--font-h);
+      font-size: clamp(52px, 9vw, 96px);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -3px;
+      margin-bottom: 24px;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: revealUp 1.1s var(--ease) .2s forwards
+    }
+
+    .hero-name em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--gold), var(--gold2), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    .hero-desc {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.8;
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: revealUp .9s var(--ease) .5s forwards
+    }
+
+    .hero-desc strong {
+      color: var(--txt);
+      font-weight: 500
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: revealUp .9s var(--ease) .7s forwards
+    }
+
+    .cursor-blink {
+      color: var(--gold);
+      animation: blink 1s infinite;
+      margin-left: 2px
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0
+      }
+    }
+
+    /* PREVIEW */
+    #preview {
+      background: var(--bg2);
+      padding: 100px 5%
+    }
+
+    .preview-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-bottom: 52px
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px
+    }
+
+    .prev-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      transition: border-color .4s, transform .5s var(--ease), box-shadow .5s
+    }
+
+    .prev-card:hover {
+      border-color: rgba(212, 175, 55, .3);
+      transform: translateY(-8px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, .4), 0 0 0 1px rgba(212, 175, 55, .08)
+    }
+
+    .prev-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      position: relative;
+      overflow: hidden;
+      background: #0D1B2A
+    }
+
+    .prev-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      transition: transform .8s var(--ease)
+    }
+
+    .prev-card:hover .prev-thumb img {
+      transform: scale(1.06) translateY(-6px)
+    }
+
+    .prev-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(212, 175, 55, .1);
+      border: 1px solid rgba(212, 175, 55, .25);
+      padding: 4px 10px;
+      border-radius: 100px
+    }
+
+    .prev-body {
+      padding: 22px;
+      flex: 1;
+      display: flex;
+      flex-direction: column
+    }
+
+    .prev-title {
+      font-family: var(--font-h);
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--txt);
+      margin-bottom: 8px
+    }
+
+    .prev-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      flex: 1;
+      margin-bottom: 16px
+    }
+
+    .prev-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      border-top: 1px solid var(--border)
+    }
+
+    .prev-techs {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap
+    }
+
+    .tech-tag {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--muted);
+      background: rgba(255, 255, 255, .04);
+      padding: 3px 9px;
+      border-radius: 100px;
+      border: 1px solid var(--border)
+    }
+
+    .prev-link {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: .5px;
+      transition: letter-spacing .3s
+    }
+
+    .prev-card:hover .prev-link {
+      letter-spacing: 2px
+    }
+
+    @media(max-width:992px) {
+      .preview-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .hero-name {
+        font-size: clamp(42px, 8vw, 70px)
+      }
+    }
+
+    @media(max-width:600px) {
+      .preview-grid {
+        grid-template-columns: 1fr
+      }
+
+      .hero-btns {
+        flex-direction: column
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="cursor"></div>
+  <div id="cursor-ring"></div>
+
+  <nav id="navbar">
+    <a href="index.html" class="logo">
+      <img src="logo.png" alt="ANGE TECH SOLUTIONS" class="logo-img">
+      <div>
+        <div class="logo-text">ANGE<span>TECH</span></div>
+        <div class="logo-sub">Solutions</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Accueil</a></li>
+      <li><a href="about.html">À propos</a></li>
+      <li><a href="skills.html">Compétences</a></li>
+      <li><a href="projects.html">Projets</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="contact.html" class="nav-cta">Parlons-en !</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mob-logo"><img src="logo.png" alt="ANGE TECH SOLUTIONS"></div>
+    <a href="index.html" class="active">Accueil</a>
+    <a href="about.html">À propos</a>
+    <a href="skills.html">Compétences</a>
+    <a href="projects.html">Projets</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <section id="home">
+    <div class="hero-grid"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="hero-inner">
+      <div class="hero-tag"><span class="hero-dot"></span>Disponible pour de nouveaux projets</div>
+      <h1 class="hero-name">Ange Michel<br><em>Ouraga</em></h1>
+      <p class="hero-desc"><strong>UI/UX Designer & Web Developer</strong> — Fondateur d'ANGE TECH SOLUTIONS. Je
+        transforme vos idées en solutions numériques performantes.</p>
+      <div class="hero-btns">
+        <a href="projects.html" class="btn-primary">Voir mes projets <span class="arrow">↗</span></a>
+        <a href="contact.html" class="btn-ghost">Me contacter</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="preview">
+    <div class="preview-header">
+      <div>
+        <p class="section-label reveal">Portefeuille</p>
+        <h2 class="section-title reveal reveal-delay-1">Mes dernières <em>réalisations</em>.</h2>
+      </div>
+      <a href="projects.html" class="btn-ghost reveal reveal-delay-2" style="flex-shrink:0">Tous les projets →</a>
+    </div>
+
+    <div class="preview-grid">
+      <a href="https://manlaong.rf.gd/" target="_blank" class="prev-card reveal">
+        <div class="prev-thumb">
+          <img src="https://image.thum.io/get/width/800/crop/500/https://manlaong.rf.gd/" alt="Manla ONG">
+          <div class="prev-badge">Vendu</div>
+        </div>
+        <div class="prev-body">
+          <div class="prev-title">Manla ONG</div>
+          <div class="prev-desc">Site institutionnel complet réalisé pour une cliente.</div>
+          <div class="prev-footer">
+            <div class="prev-techs"><span class="tech-tag">HTML</span><span class="tech-tag">CSS</span><span
+                class="tech-tag">PHP</span></div>
+            <span class="prev-link">Visiter ↗</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://maboutique.infinityfree.me/?i=1" target="_blank" class="prev-card reveal reveal-delay-1">
+        <div class="prev-thumb">
+          <img src="https://image.thum.io/get/width/800/crop/500/https://maboutique.infinityfree.me/?i=1"
+            alt="E-commerce">
+          <div class="prev-badge">Vendu</div>
+        </div>
+        <div class="prev-body">
+          <div class="prev-title">Ma Boutique Online</div>
+          <div class="prev-desc">Plateforme E-commerce dynamique avec gestion de stock.</div>
+          <div class="prev-footer">
+            <div class="prev-techs"><span class="tech-tag">PHP</span><span class="tech-tag">MySQL</span></div>
+            <span class="prev-link">Visiter ↗</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://gestion-universite.infinityfree.me/" target="_blank" class="prev-card reveal reveal-delay-2">
+        <div class="prev-thumb">
+          <img src="https://image.thum.io/get/width/1200/crop/600/http://gestion-universite.infinityfree.me/?i=1"
+            alt="Gestion Scolaire">
+          <div class="prev-badge">Système</div>
+        </div>
+        <div class="prev-body">
+          <div class="prev-title">Gestion Universitaire</div>
+          <div class="prev-desc">Outil de gestion des notes, absences et bulletins scolaires.</div>
+          <div class="prev-footer">
+            <div class="prev-techs"><span class="tech-tag">Full-Stack</span><span class="tech-tag">MySQL</span></div>
+            <span class="prev-link">Démo ↗</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://tiefsalvador19.github.io/carte-de-l-Afrique/" target="_blank" class="prev-card reveal">
+        <div class="prev-thumb">
+          <img src="https://image.thum.io/get/width/800/crop/500/https://tiefsalvador19.github.io/carte-de-l-Afrique/"
+            alt="Carte Afrique">
+          <div class="prev-badge">Interactif</div>
+        </div>
+        <div class="prev-body">
+          <div class="prev-title">Carte de l'Afrique</div>
+          <div class="prev-desc">Exploration interactive des pays africains.</div>
+          <div class="prev-footer">
+            <div class="prev-techs"><span class="tech-tag">JS</span><span class="tech-tag">SVG</span></div>
+            <span class="prev-link">Voir ↗</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://tiefsalvador19.github.io/Cr-pe-Time/" target="_blank" class="prev-card reveal reveal-delay-1">
+        <div class="prev-thumb">
+          <img src="https://image.thum.io/get/width/800/crop/500/https://tiefsalvador19.github.io/Cr-pe-Time/"
+            alt="Crêpe Time">
+          <div class="prev-badge">Vitrine</div>
+        </div>
+        <div class="prev-body">
+          <div class="prev-title">Crêpe Time</div>
+          <div class="prev-desc">Site de restauration avec design moderne et épuré.</div>
+          <div class="prev-footer">
+            <div class="prev-techs"><span class="tech-tag">UI/UX</span><span class="tech-tag">CSS</span></div>
+            <span class="prev-link">Visiter ↗</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://tiefsalvador19.github.io/Vente-de-voiture/" target="_blank"
+        class="prev-card reveal reveal-delay-2">
+        <div class="prev-thumb">
+          <img src="https://image.thum.io/get/width/800/crop/500/https://tiefsalvador19.github.io/Vente-de-voiture/"
+            alt="Vente Auto">
+          <div class="prev-badge">Business</div>
+        </div>
+        <div class="prev-body">
+          <div class="prev-title">Vente de Véhicules</div>
+          <div class="prev-desc">Catalogue en ligne pour la vente de voitures d'occasion.</div>
+          <div class="prev-footer">
+            <div class="prev-techs"><span class="tech-tag">HTML</span><span class="tech-tag">JS</span></div>
+            <span class="prev-link">Voir ↗</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <div class="reveal">
+      <p class="section-label">Collaboration</p>
+      <h2 class="section-title" style="margin-bottom:8px">Besoin d'une solution <em>similaire</em> ?</h2>
+      <p style="font-size:16px;color:var(--muted)">Je suis disponible pour de nouveaux projets.</p>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <a href="contact.html" class="btn-primary">Lancer mon projet <span class="arrow">↗</span></a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">
+      <img src="logo.png" alt="ANGE TECH SOLUTIONS">
+      <div class="footer-logo-text">ANGE<span>TECH</span></div>
+    </div>
+    <p class="footer-copy">© 2026 Ange Michel Ouraga — Abidjan, CI</p>
+    <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" class="footer-back">↑ Haut de
+      page</a>
+  </footer>
+
+  <script src="shared.js"></script>
+</body>
+
+</html>

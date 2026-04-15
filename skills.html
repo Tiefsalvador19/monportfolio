@@ -1,0 +1,2575 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compétences — ANGE TECH SOLUTIONS</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Outfit:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ── RESET & TOKENS ── */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    :root {
+      --gold: #C9A84C;
+      --gold2: #E2C47A;
+      --gold3: rgba(201, 168, 76, .12);
+      --ink: #0A0A0A;
+      --surf: #111111;
+      --s2: #171717;
+      --s3: #1E1E1E;
+      --s4: #252525;
+      --border: rgba(201, 168, 76, .16);
+      --border2: rgba(201, 168, 76, .32);
+      --text: rgba(255, 255, 255, .88);
+      --muted: rgba(255, 255, 255, .44);
+      --faint: rgba(255, 255, 255, .22);
+      --sans: 'Outfit', sans-serif;
+      --serif: 'Cinzel', serif;
+      --accent-mobile: rgba(0, 200, 255, .7);
+      --accent-purple: rgba(140, 110, 255, .7);
+      --ease: cubic-bezier(.25, .46, .45, .94);
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      background: var(--ink);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.7;
+      overflow-x: hidden
+    }
+
+    /* ── CURSOR ── */
+    #cur,
+    #cur-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      border-radius: 50%;
+      transform: translate(-50%, -50%)
+    }
+
+    #cur {
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      transition: transform .15s
+    }
+
+    #cur-ring {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(201, 168, 76, .45);
+      z-index: 9998;
+      transition: transform .35s var(--ease)
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5vw;
+      background: rgba(10, 10, 10, .88);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: background .3s
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none
+    }
+
+    .nav-logo-svg {
+      width: 32px;
+      height: 32px
+    }
+
+    .nav-logo-name {
+      font-family: var(--serif);
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #fff
+    }
+
+    .nav-logo-name em {
+      color: var(--gold);
+      font-style: normal
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .25s;
+      position: relative
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: transform .3s
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--gold)
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      transform: scaleX(1)
+    }
+
+    .nav-cta {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      padding: 9px 20px;
+      border: 1px solid var(--border2);
+      transition: background .25s, color .25s
+    }
+
+    .nav-cta:hover {
+      background: var(--gold);
+      color: var(--ink)
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      padding: 110px 5vw 80px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 70% 40%, rgba(201, 168, 76, .07) 0%, transparent 60%);
+      pointer-events: none
+    }
+
+    .hero-hatch {
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(125deg, transparent 0, transparent 28px, rgba(201, 168, 76, .022) 28px, rgba(201, 168, 76, .022) 29px);
+      pointer-events: none
+    }
+
+    .hero-ghost {
+      position: absolute;
+      right: -2vw;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--serif);
+      font-size: clamp(100px, 18vw, 240px);
+      font-weight: 900;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(201, 168, 76, .055);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 820px
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px
+    }
+
+    .eyebrow::before {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background: var(--gold)
+    }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(36px, 5vw, 68px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      color: #fff;
+      margin-bottom: 20px
+    }
+
+    .hero-title em {
+      color: var(--gold);
+      font-style: normal
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 540px;
+      line-height: 1.8
+    }
+
+    .hero-sub strong {
+      color: var(--text);
+      font-weight: 500
+    }
+
+    /* ── LAYOUT ── */
+    .layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 5vw
+    }
+
+    /* ── SECTION HEAD ── */
+    section {
+      padding: 90px 0
+    }
+
+    .sec-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px
+    }
+
+    .sec-label::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--gold)
+    }
+
+    .sec-title {
+      font-family: var(--serif);
+      font-size: clamp(26px, 3.2vw, 44px);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 12px;
+      letter-spacing: -.3px
+    }
+
+    .sec-title em {
+      color: var(--gold);
+      font-style: normal
+    }
+
+    .sec-desc {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 540px;
+      line-height: 1.8
+    }
+
+    /* ── SKILLS LAYOUT ── */
+    .skills-wrap {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 64px;
+      align-items: start;
+      padding: 90px 5vw
+    }
+
+    .skill-sidebar {
+      position: sticky;
+      top: 90px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px
+    }
+
+    .skill-nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 16px;
+      border: 1px solid transparent;
+      background: none;
+      color: var(--muted);
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: left;
+      transition: all .25s;
+      width: 100%
+    }
+
+    .skill-nav-btn:hover {
+      background: var(--s3);
+      color: var(--text)
+    }
+
+    .skill-nav-btn.active {
+      background: var(--gold3);
+      color: var(--gold);
+      border-color: var(--border2)
+    }
+
+    .skill-nav-btn .nb {
+      font-size: 10px;
+      font-weight: 700;
+      margin-left: auto;
+      opacity: .5
+    }
+
+    .skill-nav-btn.active .nb {
+      opacity: 1;
+      color: var(--gold)
+    }
+
+    /* ── SKILL SECTION ── */
+    .skill-section {
+      margin-bottom: 72px;
+      scroll-margin-top: 100px
+    }
+
+    .skill-section:last-child {
+      margin-bottom: 0
+    }
+
+    .sec-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .sec-header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px
+    }
+
+    .sec-icon {
+      width: 48px;
+      height: 48px;
+      border: 1px solid var(--border2);
+      background: var(--gold3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0
+    }
+
+    .sec-head-title {
+      font-family: var(--serif);
+      font-size: 19px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 3px
+    }
+
+    .sec-head-count {
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    /* CTA Devis button in header */
+    .devis-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--border2);
+      padding: 9px 18px;
+      background: transparent;
+      cursor: pointer;
+      transition: all .25s;
+      white-space: nowrap;
+      font-family: var(--sans)
+    }
+
+    .devis-btn:hover {
+      background: var(--gold);
+      color: var(--ink)
+    }
+
+    .devis-btn svg {
+      width: 13px;
+      height: 13px;
+      transition: transform .25s
+    }
+
+    .devis-btn:hover svg {
+      transform: translateX(3px)
+    }
+
+    /* ── CHIPS ── */
+    .chip-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-bottom: 20px
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 16px;
+      border: 1px solid var(--border);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      transition: all .25s;
+      cursor: default
+    }
+
+    .chip:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: var(--gold3);
+      transform: translateY(-2px)
+    }
+
+    .chip-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: .45
+    }
+
+    .chip:hover .chip-dot {
+      opacity: 1
+    }
+
+    .chip.expert {
+      border-color: rgba(201, 168, 76, .28)
+    }
+
+    .chip.expert .chip-dot {
+      opacity: 1
+    }
+
+    .chip.inter .chip-dot {
+      background: var(--accent-purple);
+      opacity: .8
+    }
+
+    .chip.mobile {
+      border-color: rgba(0, 200, 255, .2)
+    }
+
+    .chip.mobile .chip-dot {
+      background: var(--accent-mobile);
+      opacity: .8
+    }
+
+    /* ── BARS ── */
+    .bars {
+      display: flex;
+      flex-direction: column;
+      gap: 16px
+    }
+
+    .bar-item {}
+
+    .bar-head {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 7px
+    }
+
+    .bar-pct {
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 700
+    }
+
+    .bar-track {
+      height: 3px;
+      background: rgba(255, 255, 255, .06);
+      overflow: hidden
+    }
+
+    .bar-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--gold3), var(--gold));
+      transition: width 1.5s var(--ease)
+    }
+
+    .bar-fill.mob {
+      background: linear-gradient(90deg, rgba(0, 100, 150, .4), var(--accent-mobile))
+    }
+
+    /* ── SOFT SKILLS ── */
+    .soft-sec {
+      background: var(--s2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border)
+    }
+
+    .soft-grid {
+      margin-top: 56px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px
+    }
+
+    .soft-card {
+      background: var(--surf);
+      padding: 40px 32px;
+      position: relative;
+      overflow: hidden;
+      transition: all .3s;
+      border: 1px solid transparent
+    }
+
+    .soft-card:hover {
+      background: var(--s3);
+      border-color: var(--border2);
+      transform: translateY(-4px)
+    }
+
+    .soft-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      transform: scaleX(0);
+      transition: transform .4s
+    }
+
+    .soft-card:hover::before {
+      transform: scaleX(1)
+    }
+
+    .soft-icon {
+      font-size: 26px;
+      margin-bottom: 20px;
+      display: block
+    }
+
+    .soft-title {
+      font-family: var(--serif);
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 10px
+    }
+
+    .soft-desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 14px
+    }
+
+    .soft-tag {
+      display: inline-flex;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: var(--gold3);
+      border: 1px solid var(--border2);
+      padding: 3px 10px
+    }
+
+    /* ── TOOLS ── */
+    .tools-grid {
+      margin-top: 56px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px
+    }
+
+    .tool-card {
+      background: var(--s2);
+      border: 1px solid var(--border);
+      padding: 24px 20px;
+      text-align: center;
+      transition: all .3s
+    }
+
+    .tool-card:hover {
+      border-color: var(--border2);
+      background: var(--s3);
+      transform: translateY(-3px)
+    }
+
+    .tool-emoji {
+      font-size: 28px;
+      display: block;
+      margin-bottom: 10px
+    }
+
+    .tool-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px
+    }
+
+    .tool-desc {
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    /* ── LEARNING ── */
+    .learn-grid {
+      margin-top: 52px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px
+    }
+
+    .learn-card {
+      background: var(--s2);
+      border: 1px dashed var(--border2);
+      padding: 22px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all .3s
+    }
+
+    .learn-card:hover {
+      border-style: solid;
+      border-color: var(--gold);
+      background: var(--gold3)
+    }
+
+    .learn-ico {
+      font-size: 24px;
+      flex-shrink: 0
+    }
+
+    .learn-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 3px
+    }
+
+    .learn-desc {
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    .learn-badge {
+      margin-left: auto;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(140, 110, 255, .9);
+      background: rgba(140, 110, 255, .1);
+      border: 1px solid rgba(140, 110, 255, .25);
+      padding: 3px 10px;
+      flex-shrink: 0
+    }
+
+    .learn-badge.planned {
+      color: var(--muted);
+      background: rgba(255, 255, 255, .04);
+      border-color: rgba(255, 255, 255, .1)
+    }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      padding: 100px 5vw;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid var(--border)
+    }
+
+    .cta-band::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(201, 168, 76, .07) 0%, transparent 70%);
+      pointer-events: none
+    }
+
+    .cta-band-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 620px;
+      margin: 0 auto
+    }
+
+    .cta-band-title {
+      font-family: var(--serif);
+      font-size: clamp(26px, 3.5vw, 48px);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      letter-spacing: -.3px
+    }
+
+    .cta-band-title em {
+      color: var(--gold);
+      font-style: normal;
+      display: block
+    }
+
+    .cta-band-desc {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--muted);
+      margin-bottom: 40px;
+      line-height: 1.7
+    }
+
+    .cta-group {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--gold);
+      padding: 15px 30px;
+      text-decoration: none;
+      transition: background .25s;
+      font-family: var(--sans)
+    }
+
+    .btn-primary:hover {
+      background: var(--gold2)
+    }
+
+    .btn-sec {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--border2);
+      padding: 15px 30px;
+      text-decoration: none;
+      background: transparent;
+      transition: background .25s;
+      font-family: var(--sans)
+    }
+
+    .btn-sec:hover {
+      background: var(--gold3)
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 44px 5vw;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px
+    }
+
+    .footer-brand {
+      font-family: var(--serif);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #fff;
+      text-decoration: none
+    }
+
+    .footer-brand em {
+      color: var(--gold);
+      font-style: normal
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .25s
+    }
+
+    .footer-links a:hover {
+      color: var(--gold)
+    }
+
+    /* ── WHATSAPP FLOAT ── */
+    .wa-float {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 52px;
+      height: 52px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 23px;
+      z-index: 200;
+      box-shadow: 0 4px 24px rgba(37, 211, 102, .35);
+      transition: transform .25s, box-shadow .25s
+    }
+
+    .wa-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 32px rgba(37, 211, 102, .55)
+    }
+
+    /* ══════════════════════════════
+   MODAL / FORM
+══════════════════════════════ */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, .75);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .3s, visibility .3s
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      visibility: visible
+    }
+
+    .modal {
+      background: var(--s2);
+      border: 1px solid var(--border2);
+      width: 100%;
+      max-width: 680px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      transform: translateY(20px) scale(.98);
+      transition: transform .35s var(--ease)
+    }
+
+    .modal-overlay.open .modal {
+      transform: translateY(0) scale(1)
+    }
+
+    /* scrollbar */
+    .modal::-webkit-scrollbar {
+      width: 4px
+    }
+
+    .modal::-webkit-scrollbar-track {
+      background: var(--s3)
+    }
+
+    .modal::-webkit-scrollbar-thumb {
+      background: var(--border2)
+    }
+
+    .modal-header {
+      padding: 28px 32px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      position: sticky;
+      top: 0;
+      background: var(--s2);
+      z-index: 10
+    }
+
+    .modal-category {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px
+    }
+
+    .modal-title {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 600;
+      color: #fff
+    }
+
+    .modal-close {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border);
+      background: none;
+      color: var(--muted);
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .25s;
+      flex-shrink: 0
+    }
+
+    .modal-close:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: var(--gold3)
+    }
+
+    .modal-body {
+      padding: 28px 32px 32px
+    }
+
+    /* form fields */
+    .form-group {
+      margin-bottom: 20px
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px
+    }
+
+    label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 7px
+    }
+
+    label span {
+      color: var(--muted);
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 11px
+    }
+
+    input[type=text],
+    input[type=email],
+    input[type=tel],
+    select,
+    textarea {
+      width: 100%;
+      background: var(--s3);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 400;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color .25s, background .25s;
+      -webkit-appearance: none;
+      appearance: none
+    }
+
+    input[type=text]:focus,
+    input[type=email]:focus,
+    input[type=tel]:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--gold);
+      background: var(--s4)
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: var(--faint)
+    }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C9A84C' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 40px
+    }
+
+    select option {
+      background: var(--s3);
+      color: var(--text)
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+      line-height: 1.6
+    }
+
+    /* checkboxes & radios */
+    .check-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px
+    }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all .25s;
+      font-size: 13px;
+      color: var(--muted)
+    }
+
+    .check-item:hover {
+      border-color: var(--border2);
+      color: var(--text)
+    }
+
+    .check-item input {
+      display: none
+    }
+
+    .check-item.checked {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: var(--gold3)
+    }
+
+    .check-item .ck-ico {
+      width: 14px;
+      height: 14px;
+      border: 1px solid currentColor;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background .2s
+    }
+
+    .check-item.checked .ck-ico {
+      background: var(--gold);
+      border-color: var(--gold)
+    }
+
+    .check-item.checked .ck-ico::after {
+      content: '✓';
+      font-size: 9px;
+      color: var(--ink);
+      font-weight: 700
+    }
+
+    .radio-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px
+    }
+
+    .radio-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all .25s;
+      font-size: 13px;
+      color: var(--muted)
+    }
+
+    .radio-item:hover {
+      border-color: var(--border2);
+      color: var(--text)
+    }
+
+    .radio-item input {
+      display: none
+    }
+
+    .radio-item.selected {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: var(--gold3)
+    }
+
+    .radio-item .rk-ico {
+      width: 12px;
+      height: 12px;
+      border: 1px solid currentColor;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all .2s
+    }
+
+    .radio-item.selected .rk-ico::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      display: block
+    }
+
+    /* form divider */
+    .form-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 24px 0
+    }
+
+    .form-section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 16px
+    }
+
+    /* step indicator */
+    .form-steps {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 28px
+    }
+
+    .step-dot {
+      height: 3px;
+      flex: 1;
+      background: var(--border);
+      transition: background .3s
+    }
+
+    .step-dot.active {
+      background: var(--gold)
+    }
+
+    .step-dot.done {
+      background: rgba(201, 168, 76, .45)
+    }
+
+    /* submit */
+    .form-submit-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border)
+    }
+
+    .form-note {
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 7px
+    }
+
+    .form-note::before {
+      content: '💬';
+      font-size: 14px
+    }
+
+    .submit-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--gold);
+      padding: 14px 28px;
+      border: none;
+      cursor: pointer;
+      font-family: var(--sans);
+      transition: background .25s
+    }
+
+    .submit-btn:hover {
+      background: var(--gold2)
+    }
+
+    .submit-btn:disabled {
+      opacity: .5;
+      cursor: not-allowed
+    }
+
+    /* char counter */
+    .char-count {
+      font-size: 11px;
+      color: var(--muted);
+      text-align: right;
+      margin-top: 4px
+    }
+
+    .char-count.near {
+      color: var(--gold)
+    }
+
+    /* ── REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .65s ease, transform .65s ease
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:960px) {
+      .skills-wrap {
+        grid-template-columns: 1fr;
+        padding: 60px 5vw
+      }
+
+      .skill-sidebar {
+        position: static;
+        flex-direction: row;
+        flex-wrap: wrap
+      }
+
+      .skill-nav-btn {
+        width: auto;
+        flex: 1;
+        min-width: 120px
+      }
+
+      .soft-grid {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .tools-grid {
+        grid-template-columns: repeat(3, 1fr)
+      }
+
+      .nav-links {
+        display: none
+      }
+    }
+
+    @media(max-width:640px) {
+      .form-row {
+        grid-template-columns: 1fr
+      }
+
+      .soft-grid {
+        grid-template-columns: 1fr
+      }
+
+      .tools-grid {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .learn-grid {
+        grid-template-columns: 1fr
+      }
+
+      .modal-body {
+        padding: 20px
+      }
+
+      .modal-header {
+        padding: 20px
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="cur"></div>
+  <div id="cur-ring"></div>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="index.html" class="nav-logo">
+      <svg class="nav-logo-svg" viewBox="0 0 44 40" fill="none">
+        <line x1="6" y1="38" x2="22" y2="4" stroke="#C9A84C" stroke-width="3.5" stroke-linecap="round" />
+        <line x1="22" y1="4" x2="38" y2="38" stroke="#C9A84C" stroke-width="3.5" stroke-linecap="round" />
+        <line x1="11" y1="26" x2="33" y2="26" stroke="#C9A84C" stroke-width="3" stroke-linecap="round" />
+        <line x1="22" y1="14" x2="40" y2="14" stroke="#C9A84C" stroke-width="3" stroke-linecap="round" />
+        <line x1="31" y1="14" x2="31" y2="38" stroke="#C9A84C" stroke-width="3" stroke-linecap="round" />
+      </svg>
+      <span class="nav-logo-name">ANGE<em>.</em></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="about.html">À propos</a></li>
+      <li><a href="skills.html" class="active">Compétences</a></li>
+      <li><a href="projects.html">Projets</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="contact.html" class="nav-cta">Me contacter</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-hatch"></div>
+    <div class="hero-ghost">SKL</div>
+    <div class="hero-inner reveal">
+      <span class="eyebrow">Compétences</span>
+      <h1 class="hero-title">Mon <em>arsenal</em><br>technique.</h1>
+      <p class="hero-sub">Des compétences construites <strong>projet après projet</strong>, du frontend au mobile —
+        toujours au service du résultat. Chaque catégorie propose un <strong>formulaire de devis gratuit</strong> adapté
+        à ton projet.</p>
+    </div>
+  </section>
+
+  <!-- SKILLS MAIN -->
+  <div class="skills-wrap">
+
+    <!-- SIDEBAR -->
+    <aside class="skill-sidebar reveal">
+      <button class="skill-nav-btn active" onclick="scrollTo('s-frontend')">🌐 Frontend <span
+          class="nb">5</span></button>
+      <button class="skill-nav-btn" onclick="scrollTo('s-design')">🎨 Design UI/UX <span class="nb">7</span></button>
+      <button class="skill-nav-btn" onclick="scrollTo('s-mobile')">📱 Mobile <span class="nb">4</span></button>
+      <button class="skill-nav-btn" onclick="scrollTo('s-backend')">⚙️ Backend <span class="nb">7</span></button>
+      <button class="skill-nav-btn" onclick="scrollTo('s-bars')">📊 Niveaux</button>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div>
+
+      <!-- FRONTEND -->
+      <div class="skill-section reveal" id="s-frontend">
+        <div class="sec-header">
+          <div class="sec-header-left">
+            <div class="sec-icon">🌐</div>
+            <div>
+              <div class="sec-head-title">Développement Frontend</div>
+              <div class="sec-head-count">5 compétences · Sites vitrines, landing pages, portfolios</div>
+            </div>
+          </div>
+          <button class="devis-btn" onclick="openModal('frontend')">
+            Demander un devis
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+        <div class="chip-grid">
+          <div class="chip expert"><span class="chip-dot"></span>HTML5</div>
+          <div class="chip expert"><span class="chip-dot"></span>CSS3 / SCSS</div>
+          <div class="chip inter"><span class="chip-dot"></span>JavaScript ES6+</div>
+          <div class="chip inter"><span class="chip-dot"></span>Responsive Design</div>
+          <div class="chip inter"><span class="chip-dot"></span>Animations CSS</div>
+        </div>
+      </div>
+
+      <!-- DESIGN -->
+      <div class="skill-section reveal" id="s-design">
+        <div class="sec-header">
+          <div class="sec-header-left">
+            <div class="sec-icon">🎨</div>
+            <div>
+              <div class="sec-head-title">Design UI/UX</div>
+              <div class="sec-head-count">7 compétences · Maquettes, prototypes, design systems</div>
+            </div>
+          </div>
+          <button class="devis-btn" onclick="openModal('design')">
+            Demander un devis
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+        <div class="chip-grid">
+          <div class="chip inter"><span class="chip-dot"></span>UI Design</div>
+          <div class="chip inter"><span class="chip-dot"></span>UX Research</div>
+          <div class="chip inter"><span class="chip-dot"></span>Wireframing</div>
+          <div class="chip inter"><span class="chip-dot"></span>Prototypage Interactif</div>
+          <div class="chip inter"><span class="chip-dot"></span>Design System</div>
+          <div class="chip inter"><span class="chip-dot"></span>Figma</div>
+          <div class="chip"><span class="chip-dot"></span>Éco-conception</div>
+        </div>
+      </div>
+
+      <!-- MOBILE -->
+      <div class="skill-section reveal" id="s-mobile">
+        <div class="sec-header">
+          <div class="sec-header-left">
+            <div class="sec-icon">📱</div>
+            <div>
+              <div class="sec-head-title">Développement Mobile</div>
+              <div class="sec-head-count">4 compétences · Android natif Kotlin · Firebase</div>
+            </div>
+          </div>
+          <button class="devis-btn" onclick="openModal('mobile')">
+            Demander un devis
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+        <div class="chip-grid">
+          <div class="chip mobile"><span class="chip-dot"></span>Kotlin / Android</div>
+          <div class="chip mobile"><span class="chip-dot"></span>Jetpack Compose</div>
+          <div class="chip mobile"><span class="chip-dot"></span>Firebase (Auth & Firestore)</div>
+          <div class="chip mobile"><span class="chip-dot"></span>Architecture MVVM</div>
+        </div>
+        <div
+          style="padding:16px 20px;background:rgba(0,200,255,.04);border:1px solid rgba(0,200,255,.14);display:flex;gap:14px;align-items:flex-start;margin-top:4px">
+          <span style="font-size:18px;flex-shrink:0">🔬</span>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Projets de référence</div>
+            <div style="font-size:13px;color:var(--muted);line-height:1.7"><strong style="color:var(--text)">Poubelle
+                Souriante</strong> — App Android de collecte de déchets géolocalisée (MVVM + Firebase). <strong
+                style="color:var(--text)">Pharma Garde CI</strong> — Localisation des pharmacies de garde en Côte
+              d'Ivoire.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BACKEND -->
+      <div class="skill-section reveal" id="s-backend">
+        <div class="sec-header">
+          <div class="sec-header-left">
+            <div class="sec-icon">⚙️</div>
+            <div>
+              <div class="sec-head-title">Backend & Outils</div>
+              <div class="sec-head-count">7 compétences · PHP · MySQL · Laravel · API REST</div>
+            </div>
+          </div>
+          <button class="devis-btn" onclick="openModal('backend')">
+            Demander un devis
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+        <div class="chip-grid">
+          <div class="chip expert"><span class="chip-dot"></span>PHP / MySQL</div>
+          <div class="chip inter"><span class="chip-dot"></span>Laravel <span
+              style="font-size:10px;color:var(--gold);margin-left:2px">↑ en cours</span></div>
+          <div class="chip inter"><span class="chip-dot"></span>Firebase</div>
+          <div class="chip inter"><span class="chip-dot"></span>API REST</div>
+          <div class="chip inter"><span class="chip-dot"></span>Bootstrap</div>
+          <div class="chip"><span class="chip-dot"></span>Git / GitHub</div>
+          <div class="chip"><span class="chip-dot"></span>GitHub Pages</div>
+        </div>
+      </div>
+
+      <!-- BARS -->
+      <div class="skill-section reveal" id="s-bars">
+        <div class="sec-header">
+          <div class="sec-header-left">
+            <div class="sec-icon">📊</div>
+            <div>
+              <div class="sec-head-title">Niveaux de maîtrise</div>
+              <div class="sec-head-count">Auto-évaluation honnête</div>
+            </div>
+          </div>
+        </div>
+        <div class="bars bar-skills">
+          <div class="bar-item">
+            <div class="bar-head">HTML / CSS <span class="bar-pct">90%</span></div>
+            <div class="bar-track">
+              <div class="bar-fill" data-w="90"></div>
+            </div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-head">UI / UX Design <span class="bar-pct">80%</span></div>
+            <div class="bar-track">
+              <div class="bar-fill" data-w="80"></div>
+            </div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-head">JavaScript <span class="bar-pct">72%</span></div>
+            <div class="bar-track">
+              <div class="bar-fill" data-w="72"></div>
+            </div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-head">PHP / MySQL <span class="bar-pct">70%</span></div>
+            <div class="bar-track">
+              <div class="bar-fill" data-w="70"></div>
+            </div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-head">Laravel <span class="bar-pct">35%</span></div>
+            <div class="bar-track">
+              <div class="bar-fill" data-w="35"></div>
+            </div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-head">Kotlin / Android <span class="bar-pct">68%</span></div>
+            <div class="bar-track">
+              <div class="bar-fill mob" data-w="68"></div>
+            </div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-head">Firebase <span class="bar-pct">65%</span></div>
+            <div class="bar-track">
+              <div class="bar-fill mob" data-w="65"></div>
+            </div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-head">Git / GitHub <span class="bar-pct">60%</span></div>
+            <div class="bar-track">
+              <div class="bar-fill" data-w="60"></div>
+            </div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-head">Figma <span class="bar-pct">68%</span></div>
+            <div class="bar-track">
+              <div class="bar-fill" data-w="68"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /skills-wrap -->
+
+  <!-- SOFT SKILLS -->
+  <section class="soft-sec">
+    <div class="layout">
+      <span class="sec-label reveal">Compétences humaines</span>
+      <h2 class="sec-title reveal">Au-delà du <em>code</em>.</h2>
+      <p class="sec-desc reveal">Un client ne recrute pas qu'un développeur — il recrute un
+        <strong>collaborateur</strong> capable de comprendre ses besoins et de piloter un projet.</p>
+      <div class="soft-grid">
+        <div class="soft-card reveal"><span class="soft-icon">🏗️</span>
+          <div class="soft-title">Gestion de projet</div>
+          <div class="soft-desc">Planification, suivi et livraison. Expérience Agile / Scrum avec sprints et
+            rétrospectives.</div><span class="soft-tag">Chef de Projet — DLD</span>
+        </div>
+        <div class="soft-card reveal"><span class="soft-icon">📋</span>
+          <div class="soft-title">Cahier des charges</div>
+          <div class="soft-desc">Rédaction de spécifications fonctionnelles et techniques claires pour cadrer les
+            projets dès le départ.</div><span class="soft-tag">Rigueur & Méthode</span>
+        </div>
+        <div class="soft-card reveal"><span class="soft-icon">🌱</span>
+          <div class="soft-title">Éco-conception</div>
+          <div class="soft-desc">Applications responsables : performances optimisées, empreinte carbone réduite.
+            Appliqué dans Poubelle Souriante.</div><span class="soft-tag">Impact positif</span>
+        </div>
+        <div class="soft-card reveal"><span class="soft-icon">💬</span>
+          <div class="soft-title">Communication client</div>
+          <div class="soft-desc">Écoute active, reformulation des besoins, feedback régulier. Je traduis le technique en
+            simple.</div><span class="soft-tag">Relation client</span>
+        </div>
+        <div class="soft-card reveal"><span class="soft-icon">🔍</span>
+          <div class="soft-title">UX Research</div>
+          <div class="soft-desc">Analyse des parcours utilisateurs, personas et tests d'usabilité pour des interfaces
+            qui convertissent.</div><span class="soft-tag">Centré utilisateur</span>
+        </div>
+        <div class="soft-card reveal"><span class="soft-icon">⚡</span>
+          <div class="soft-title">Autonomie & Veille</div>
+          <div class="soft-desc">Auto-formation continue sur React, Laravel, Python. Capacité à livrer seul un projet de
+            A à Z.</div><span class="soft-tag">Freelance-ready</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUTILS -->
+  <section>
+    <div class="layout">
+      <span class="sec-label reveal">Environnement</span>
+      <h2 class="sec-title reveal">Mes <em>outils</em> du quotidien.</h2>
+      <div class="tools-grid">
+        <div class="tool-card reveal"><span class="tool-emoji">💻</span>
+          <div class="tool-name">VS Code</div>
+          <div class="tool-desc">Éditeur principal</div>
+        </div>
+        <div class="tool-card reveal"><span class="tool-emoji">🐙</span>
+          <div class="tool-name">GitHub</div>
+          <div class="tool-desc">Versioning & déploiement</div>
+        </div>
+        <div class="tool-card reveal"><span class="tool-emoji">🎨</span>
+          <div class="tool-name">Figma</div>
+          <div class="tool-desc">Design & prototypage</div>
+        </div>
+        <div class="tool-card reveal"><span class="tool-emoji">🔥</span>
+          <div class="tool-name">Firebase</div>
+          <div class="tool-desc">Auth, Firestore, Hosting</div>
+        </div>
+        <div class="tool-card reveal"><span class="tool-emoji">🤖</span>
+          <div class="tool-name">Android Studio</div>
+          <div class="tool-desc">Développement mobile</div>
+        </div>
+        <div class="tool-card reveal"><span class="tool-emoji">🗄️</span>
+          <div class="tool-name">MySQL</div>
+          <div class="tool-desc">Base de données</div>
+        </div>
+        <div class="tool-card reveal"><span class="tool-emoji">🌐</span>
+          <div class="tool-name">Chrome DevTools</div>
+          <div class="tool-desc">Debug & inspection</div>
+        </div>
+        <div class="tool-card reveal"><span class="tool-emoji">⚡</span>
+          <div class="tool-name">GitHub Pages</div>
+          <div class="tool-desc">Hébergement</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEARNING -->
+  <section style="background:var(--s2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+    <div class="layout">
+      <span class="sec-label reveal">En cours</span>
+      <h2 class="sec-title reveal">Ce que j'apprends <em>maintenant</em>.</h2>
+      <div class="learn-grid">
+        <div class="learn-card reveal"><span class="learn-ico">⚛️</span>
+          <div>
+            <div class="learn-name">React.js</div>
+            <div class="learn-desc">Composants & state management</div>
+          </div><span class="learn-badge">En cours</span>
+        </div>
+        <div class="learn-card reveal"><span class="learn-ico">🐍</span>
+          <div>
+            <div class="learn-name">Python</div>
+            <div class="learn-desc">Scripting & automatisation</div>
+          </div><span class="learn-badge">En cours</span>
+        </div>
+        <div class="learn-card reveal"><span class="learn-ico">🏗️</span>
+          <div>
+            <div class="learn-name">Laravel</div>
+            <div class="learn-desc">Framework PHP · Eloquent · Blade · Routes</div>
+          </div><span class="learn-badge">En cours</span>
+        </div>
+        <div class="learn-card reveal"><span class="learn-ico">☁️</span>
+          <div>
+            <div class="learn-name">Cloud & CI/CD</div>
+            <div class="learn-desc">Déploiement automatisé, pipelines</div>
+          </div><span class="learn-badge">En cours</span>
+        </div>
+        <div class="learn-card reveal"><span class="learn-ico">🔐</span>
+          <div>
+            <div class="learn-name">Sécurité Web</div>
+            <div class="learn-desc">OWASP, validation, authentification</div>
+          </div><span class="learn-badge planned">Prévu</span>
+        </div>
+        <div class="learn-card reveal"><span class="learn-ico">🤖</span>
+          <div>
+            <div class="learn-name">AI / APIs IA</div>
+            <div class="learn-desc">Intégration ChatGPT, Claude API</div>
+          </div><span class="learn-badge planned">Prévu</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-band">
+    <div class="cta-band-inner reveal">
+      <h2 class="cta-band-title">Un projet à <em>réaliser ?</em></h2>
+      <p class="cta-band-desc">Web, mobile ou design — clique sur le bouton "Demander un devis" dans la catégorie qui te
+        correspond, remplis le cahier des charges et je te réponds sous 24h.</p>
+      <div class="cta-group">
+        <a href="https://wa.me/2250151185932" class="btn-primary">Démarrer sur WhatsApp →</a>
+        <a href="projects.html" class="btn-sec">Voir mes projets</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="index.html" class="footer-brand">ANGE<em>TECH</em></a>
+    <div class="footer-links">
+      <a href="index.html">Accueil</a>
+      <a href="about.html">À propos</a>
+      <a href="projects.html">Projets</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <p class="footer-copy">© 2026 ANGE TECH SOLUTIONS</p>
+  </footer>
+
+  <a href="https://wa.me/2250151185932" class="wa-float" title="WhatsApp">💬</a>
+
+  <!-- ══════════════════════════════
+     MODALS
+══════════════════════════════ -->
+
+  <!-- MODAL FRONTEND -->
+  <div class="modal-overlay" id="modal-frontend">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <div class="modal-category">🌐 Développement Frontend</div>
+          <div class="modal-title">Cahier des charges — Site web</div>
+        </div>
+        <button class="modal-close" onclick="closeModal('frontend')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-steps" id="steps-frontend">
+          <div class="step-dot active"></div>
+          <div class="step-dot"></div>
+          <div class="step-dot"></div>
+        </div>
+
+        <!-- CLIENT INFO -->
+        <div class="form-section-label">Vos coordonnées</div>
+        <div class="form-row">
+          <div class="form-group"><label>Nom complet <span>*</span></label><input type="text" id="fe-name"
+              placeholder="Jean Dupont" required></div>
+          <div class="form-group"><label>WhatsApp / Téléphone <span>*</span></label><input type="tel" id="fe-phone"
+              placeholder="+225 XX XX XX XX" required></div>
+        </div>
+        <div class="form-group"><label>Email <span>optionnel</span></label><input type="email" id="fe-email"
+            placeholder="vous@example.com"></div>
+
+        <hr class="form-divider">
+        <div class="form-section-label">Votre projet</div>
+
+        <div class="form-group">
+          <label>Type de site souhaité <span>*</span></label>
+          <div class="radio-group" id="fe-type">
+            <div class="radio-item" data-val="Site vitrine">
+              <div class="rk-ico"></div>Site vitrine
+            </div>
+            <div class="radio-item" data-val="Landing page">
+              <div class="rk-ico"></div>Landing page
+            </div>
+            <div class="radio-item" data-val="Portfolio">
+              <div class="rk-ico"></div>Portfolio
+            </div>
+            <div class="radio-item" data-val="Blog">
+              <div class="rk-ico"></div>Blog
+            </div>
+            <div class="radio-item" data-val="E-commerce">
+              <div class="rk-ico"></div>E-commerce
+            </div>
+            <div class="radio-item" data-val="Autre">
+              <div class="rk-ico"></div>Autre
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Secteur d'activité <span>*</span></label>
+          <input type="text" id="fe-secteur" placeholder="Ex : Restaurant, Cabinet médical, Mode...">
+        </div>
+
+        <div class="form-group">
+          <label>Fonctionnalités souhaitées <span>plusieurs choix possibles</span></label>
+          <div class="check-group" id="fe-features">
+            <div class="check-item" data-val="Formulaire de contact">
+              <div class="ck-ico"></div>Formulaire de contact
+            </div>
+            <div class="check-item" data-val="Galerie photos">
+              <div class="ck-ico"></div>Galerie photos
+            </div>
+            <div class="check-item" data-val="Carte Google Maps">
+              <div class="ck-ico"></div>Carte Google Maps
+            </div>
+            <div class="check-item" data-val="Blog / Articles">
+              <div class="ck-ico"></div>Blog / Articles
+            </div>
+            <div class="check-item" data-val="Espace client">
+              <div class="ck-ico"></div>Espace client
+            </div>
+            <div class="check-item" data-val="Paiement en ligne">
+              <div class="ck-ico"></div>Paiement en ligne
+            </div>
+            <div class="check-item" data-val="Multi-langues">
+              <div class="ck-ico"></div>Multi-langues
+            </div>
+            <div class="check-item" data-val="Newsletter">
+              <div class="ck-ico"></div>Newsletter
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Budget estimé <span>*</span></label>
+          <div class="radio-group" id="fe-budget">
+            <div class="radio-item" data-val="Moins de 50 000 FCFA">
+              <div class="rk-ico"></div>&lt; 50k FCFA
+            </div>
+            <div class="radio-item" data-val="50 000 – 150 000 FCFA">
+              <div class="rk-ico"></div>50k – 150k
+            </div>
+            <div class="radio-item" data-val="150 000 – 400 000 FCFA">
+              <div class="rk-ico"></div>150k – 400k
+            </div>
+            <div class="radio-item" data-val="Plus de 400 000 FCFA">
+              <div class="rk-ico"></div>&gt; 400k
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Délai souhaité <span>*</span></label>
+          <div class="radio-group" id="fe-delai">
+            <div class="radio-item" data-val="Urgent (moins d'1 semaine)">
+              <div class="rk-ico"></div>Urgent (&lt;1 sem)
+            </div>
+            <div class="radio-item" data-val="2 – 4 semaines">
+              <div class="rk-ico"></div>2 – 4 semaines
+            </div>
+            <div class="radio-item" data-val="1 – 2 mois">
+              <div class="rk-ico"></div>1 – 2 mois
+            </div>
+            <div class="radio-item" data-val="Pas de contrainte">
+              <div class="rk-ico"></div>Pas de contrainte
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Description du projet <span>*</span></label>
+          <textarea id="fe-desc" rows="4" maxlength="600" oninput="countChars(this,'fe-cc')"
+            placeholder="Décrivez votre activité, vos objectifs, vos inspirations (sites que vous aimez), vos contraintes spécifiques..."></textarea>
+          <div class="char-count" id="fe-cc">0 / 600</div>
+        </div>
+
+        <div class="form-group">
+          <label>Avez-vous déjà un logo / charte graphique ?</label>
+          <div class="radio-group" id="fe-logo">
+            <div class="radio-item" data-val="Oui, j'ai un logo et une charte">
+              <div class="rk-ico"></div>Oui, complet
+            </div>
+            <div class="radio-item" data-val="Partiellement (logo seul)">
+              <div class="rk-ico"></div>Logo seulement
+            </div>
+            <div class="radio-item" data-val="Non, à créer">
+              <div class="rk-ico"></div>Non, à créer
+            </div>
+          </div>
+        </div>
+
+        <div class="form-submit-row">
+          <span class="form-note">Envoi direct sur WhatsApp</span>
+          <button class="submit-btn" onclick="sendWhatsApp('frontend')">Envoyer le cahier des charges →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DESIGN -->
+  <div class="modal-overlay" id="modal-design">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <div class="modal-category">🎨 Design UI/UX</div>
+          <div class="modal-title">Cahier des charges — Design & Maquette</div>
+        </div>
+        <button class="modal-close" onclick="closeModal('design')">✕</button>
+      </div>
+      <div class="modal-body">
+
+        <div class="form-section-label">Vos coordonnées</div>
+        <div class="form-row">
+          <div class="form-group"><label>Nom complet <span>*</span></label><input type="text" id="ds-name"
+              placeholder="Jean Dupont" required></div>
+          <div class="form-group"><label>WhatsApp <span>*</span></label><input type="tel" id="ds-phone"
+              placeholder="+225 XX XX XX XX" required></div>
+        </div>
+
+        <hr class="form-divider">
+        <div class="form-section-label">Votre besoin design</div>
+
+        <div class="form-group">
+          <label>Prestation souhaitée <span>*</span></label>
+          <div class="check-group" id="ds-type">
+            <div class="check-item" data-val="Maquette UI (Figma)">
+              <div class="ck-ico"></div>Maquette UI (Figma)
+            </div>
+            <div class="check-item" data-val="Prototype interactif">
+              <div class="ck-ico"></div>Prototype interactif
+            </div>
+            <div class="check-item" data-val="Design System">
+              <div class="ck-ico"></div>Design System
+            </div>
+            <div class="check-item" data-val="UX Audit">
+              <div class="ck-ico"></div>UX Audit
+            </div>
+            <div class="check-item" data-val="Wireframes">
+              <div class="ck-ico"></div>Wireframes
+            </div>
+            <div class="check-item" data-val="Identité visuelle">
+              <div class="ck-ico"></div>Identité visuelle
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Nombre d'écrans / pages estimé <span>*</span></label>
+          <div class="radio-group" id="ds-screens">
+            <div class="radio-item" data-val="1 – 5 écrans">
+              <div class="rk-ico"></div>1 – 5
+            </div>
+            <div class="radio-item" data-val="6 – 15 écrans">
+              <div class="rk-ico"></div>6 – 15
+            </div>
+            <div class="radio-item" data-val="16 – 30 écrans">
+              <div class="rk-ico"></div>16 – 30
+            </div>
+            <div class="radio-item" data-val="Plus de 30 écrans">
+              <div class="rk-ico"></div>&gt; 30
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Style visuel recherché</label>
+          <div class="check-group" id="ds-style">
+            <div class="check-item" data-val="Minimaliste">
+              <div class="ck-ico"></div>Minimaliste
+            </div>
+            <div class="check-item" data-val="Moderne & bold">
+              <div class="ck-ico"></div>Moderne & bold
+            </div>
+            <div class="check-item" data-val="Luxueux / Premium">
+              <div class="ck-ico"></div>Luxueux / Premium
+            </div>
+            <div class="check-item" data-val="Coloré & dynamique">
+              <div class="ck-ico"></div>Coloré & dynamique
+            </div>
+            <div class="check-item" data-val="Corporatif / Sérieux">
+              <div class="ck-ico"></div>Corporatif
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Supports cibles</label>
+          <div class="check-group" id="ds-device">
+            <div class="check-item" data-val="Desktop">
+              <div class="ck-ico"></div>Desktop
+            </div>
+            <div class="check-item" data-val="Mobile">
+              <div class="ck-ico"></div>Mobile
+            </div>
+            <div class="check-item" data-val="Tablette">
+              <div class="ck-ico"></div>Tablette
+            </div>
+            <div class="check-item" data-val="Application Android">
+              <div class="ck-ico"></div>App Android
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Avez-vous des références ? <span>sites ou apps que vous aimez</span></label>
+          <input type="text" id="ds-refs" placeholder="Ex : airbnb.com, dribbble.com/shot/xxxx...">
+        </div>
+
+        <div class="form-group">
+          <label>Budget estimé <span>*</span></label>
+          <div class="radio-group" id="ds-budget">
+            <div class="radio-item" data-val="Moins de 30 000 FCFA">
+              <div class="rk-ico"></div>&lt; 30k FCFA
+            </div>
+            <div class="radio-item" data-val="30 000 – 100 000 FCFA">
+              <div class="rk-ico"></div>30k – 100k
+            </div>
+            <div class="radio-item" data-val="100 000 – 300 000 FCFA">
+              <div class="rk-ico"></div>100k – 300k
+            </div>
+            <div class="radio-item" data-val="Plus de 300 000 FCFA">
+              <div class="rk-ico"></div>&gt; 300k
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Description détaillée <span>*</span></label>
+          <textarea id="ds-desc" rows="4" maxlength="600" oninput="countChars(this,'ds-cc')"
+            placeholder="Décrivez votre activité, le public cible, l'ambiance souhaitée, les contraintes de charte existante..."></textarea>
+          <div class="char-count" id="ds-cc">0 / 600</div>
+        </div>
+
+        <div class="form-submit-row">
+          <span class="form-note">Envoi direct sur WhatsApp</span>
+          <button class="submit-btn" onclick="sendWhatsApp('design')">Envoyer le cahier des charges →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL MOBILE -->
+  <div class="modal-overlay" id="modal-mobile">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <div class="modal-category">📱 Développement Mobile</div>
+          <div class="modal-title">Cahier des charges — Application mobile</div>
+        </div>
+        <button class="modal-close" onclick="closeModal('mobile')">✕</button>
+      </div>
+      <div class="modal-body">
+
+        <div class="form-section-label">Vos coordonnées</div>
+        <div class="form-row">
+          <div class="form-group"><label>Nom complet <span>*</span></label><input type="text" id="mb-name"
+              placeholder="Jean Dupont"></div>
+          <div class="form-group"><label>WhatsApp <span>*</span></label><input type="tel" id="mb-phone"
+              placeholder="+225 XX XX XX XX"></div>
+        </div>
+
+        <hr class="form-divider">
+        <div class="form-section-label">Votre application</div>
+
+        <div class="form-group">
+          <label>Type d'application <span>*</span></label>
+          <div class="radio-group" id="mb-type">
+            <div class="radio-item" data-val="Application Android native">
+              <div class="rk-ico"></div>Android natif
+            </div>
+            <div class="radio-item" data-val="Application multi-plateforme">
+              <div class="rk-ico"></div>Multi-plateforme
+            </div>
+            <div class="radio-item" data-val="Je ne sais pas encore">
+              <div class="rk-ico"></div>À définir
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Catégorie de l'app <span>*</span></label>
+          <div class="check-group" id="mb-cat">
+            <div class="check-item" data-val="Commerce / Marketplace">
+              <div class="ck-ico"></div>Commerce
+            </div>
+            <div class="check-item" data-val="Services à la personne">
+              <div class="ck-ico"></div>Services
+            </div>
+            <div class="check-item" data-val="Géolocalisation / Maps">
+              <div class="ck-ico"></div>Géolocalisation
+            </div>
+            <div class="check-item" data-val="Social / Communauté">
+              <div class="ck-ico"></div>Social
+            </div>
+            <div class="check-item" data-val="Santé / Bien-être">
+              <div class="ck-ico"></div>Santé
+            </div>
+            <div class="check-item" data-val="Éducation">
+              <div class="ck-ico"></div>Éducation
+            </div>
+            <div class="check-item" data-val="Utilitaire / Gestion interne">
+              <div class="ck-ico"></div>Utilitaire
+            </div>
+            <div class="check-item" data-val="Autre">
+              <div class="ck-ico"></div>Autre
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Fonctionnalités clés <span>*</span></label>
+          <div class="check-group" id="mb-features">
+            <div class="check-item" data-val="Authentification (login/inscription)">
+              <div class="ck-ico"></div>Authentification
+            </div>
+            <div class="check-item" data-val="Base de données Firebase">
+              <div class="ck-ico"></div>Firebase / BDD
+            </div>
+            <div class="check-item" data-val="Géolocalisation en temps réel">
+              <div class="ck-ico"></div>GPS / Maps
+            </div>
+            <div class="check-item" data-val="Notifications push">
+              <div class="ck-ico"></div>Notifications push
+            </div>
+            <div class="check-item" data-val="Paiement mobile (Orange Money, MTN)">
+              <div class="ck-ico"></div>Paiement mobile
+            </div>
+            <div class="check-item" data-val="Chat / Messagerie">
+              <div class="ck-ico"></div>Chat
+            </div>
+            <div class="check-item" data-val="Gestion de profil utilisateur">
+              <div class="ck-ico"></div>Profil utilisateur
+            </div>
+            <div class="check-item" data-val="Dashboard / Statistiques">
+              <div class="ck-ico"></div>Dashboard
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Nombre d'utilisateurs cibles estimé</label>
+          <div class="radio-group" id="mb-users">
+            <div class="radio-item" data-val="Usage interne / Petit groupe">
+              <div class="rk-ico"></div>&lt; 100
+            </div>
+            <div class="radio-item" data-val="100 – 10 000 utilisateurs">
+              <div class="rk-ico"></div>100 – 10k
+            </div>
+            <div class="radio-item" data-val="Plus de 10 000 utilisateurs">
+              <div class="rk-ico"></div>&gt; 10k
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Budget estimé <span>*</span></label>
+          <div class="radio-group" id="mb-budget">
+            <div class="radio-item" data-val="Moins de 100 000 FCFA">
+              <div class="rk-ico"></div>&lt; 100k FCFA
+            </div>
+            <div class="radio-item" data-val="100 000 – 300 000 FCFA">
+              <div class="rk-ico"></div>100k – 300k
+            </div>
+            <div class="radio-item" data-val="300 000 – 700 000 FCFA">
+              <div class="rk-ico"></div>300k – 700k
+            </div>
+            <div class="radio-item" data-val="Plus de 700 000 FCFA">
+              <div class="rk-ico"></div>&gt; 700k
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Description du projet <span>*</span></label>
+          <textarea id="mb-desc" rows="4" maxlength="600" oninput="countChars(this,'mb-cc')"
+            placeholder="Décrivez le problème que votre app résout, votre cible, les fonctionnalités principales, si vous avez déjà des maquettes..."></textarea>
+          <div class="char-count" id="mb-cc">0 / 600</div>
+        </div>
+
+        <div class="form-submit-row">
+          <span class="form-note">Envoi direct sur WhatsApp</span>
+          <button class="submit-btn" onclick="sendWhatsApp('mobile')">Envoyer le cahier des charges →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL BACKEND -->
+  <div class="modal-overlay" id="modal-backend">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <div class="modal-category">⚙️ Backend & Outils</div>
+          <div class="modal-title">Cahier des charges — Application web / Backend</div>
+        </div>
+        <button class="modal-close" onclick="closeModal('backend')">✕</button>
+      </div>
+      <div class="modal-body">
+
+        <div class="form-section-label">Vos coordonnées</div>
+        <div class="form-row">
+          <div class="form-group"><label>Nom complet <span>*</span></label><input type="text" id="be-name"
+              placeholder="Jean Dupont"></div>
+          <div class="form-group"><label>WhatsApp <span>*</span></label><input type="tel" id="be-phone"
+              placeholder="+225 XX XX XX XX"></div>
+        </div>
+
+        <hr class="form-divider">
+        <div class="form-section-label">Votre projet backend</div>
+
+        <div class="form-group">
+          <label>Type de projet <span>*</span></label>
+          <div class="check-group" id="be-type">
+            <div class="check-item" data-val="Application web (Laravel / PHP)">
+              <div class="ck-ico"></div>App web Laravel/PHP
+            </div>
+            <div class="check-item" data-val="API REST">
+              <div class="ck-ico"></div>API REST
+            </div>
+            <div class="check-item" data-val="Site e-commerce avec back-office">
+              <div class="ck-ico"></div>E-commerce + back-office
+            </div>
+            <div class="check-item" data-val="Système de gestion (ERP / CRM)">
+              <div class="ck-ico"></div>ERP / CRM
+            </div>
+            <div class="check-item" data-val="Plateforme SaaS">
+              <div class="ck-ico"></div>Plateforme SaaS
+            </div>
+            <div class="check-item" data-val="Script / Outil interne">
+              <div class="ck-ico"></div>Script / Outil
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Stack technologique souhaitée</label>
+          <div class="check-group" id="be-stack">
+            <div class="check-item" data-val="PHP / MySQL (natif)">
+              <div class="ck-ico"></div>PHP natif
+            </div>
+            <div class="check-item" data-val="Laravel + MySQL">
+              <div class="ck-ico"></div>Laravel
+            </div>
+            <div class="check-item" data-val="Firebase (Firestore)">
+              <div class="ck-ico"></div>Firebase
+            </div>
+            <div class="check-item" data-val="API tierce à intégrer">
+              <div class="ck-ico"></div>API tierce
+            </div>
+            <div class="check-item" data-val="Libre choix du développeur">
+              <div class="ck-ico"></div>Au choix du dev
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Fonctionnalités backend requises</label>
+          <div class="check-group" id="be-features">
+            <div class="check-item" data-val="Authentification & rôles utilisateurs">
+              <div class="ck-ico"></div>Auth & rôles
+            </div>
+            <div class="check-item" data-val="CRUD complet (gestion de données)">
+              <div class="ck-ico"></div>CRUD données
+            </div>
+            <div class="check-item" data-val="Gestion de fichiers / uploads">
+              <div class="ck-ico"></div>Upload fichiers
+            </div>
+            <div class="check-item" data-val="Envoi d'emails automatisés">
+              <div class="ck-ico"></div>Emails auto
+            </div>
+            <div class="check-item" data-val="Tableaux de bord & reporting">
+              <div class="ck-ico"></div>Dashboard / stats
+            </div>
+            <div class="check-item" data-val="Intégration paiement (Orange Money, MTN, Stripe)">
+              <div class="ck-ico"></div>Paiement
+            </div>
+            <div class="check-item" data-val="API REST consommable par app mobile">
+              <div class="ck-ico"></div>API pour app mobile
+            </div>
+            <div class="check-item" data-val="Déploiement serveur (VPS, cPanel)">
+              <div class="ck-ico"></div>Déploiement
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Avez-vous un hébergement existant ?</label>
+          <div class="radio-group" id="be-hosting">
+            <div class="radio-item" data-val="Oui (cPanel / VPS)">
+              <div class="rk-ico"></div>Oui (cPanel/VPS)
+            </div>
+            <div class="radio-item" data-val="Non, à prévoir dans le devis">
+              <div class="rk-ico"></div>Non, à inclure
+            </div>
+            <div class="radio-item" data-val="Je ne sais pas encore">
+              <div class="rk-ico"></div>À définir
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Budget estimé <span>*</span></label>
+          <div class="radio-group" id="be-budget">
+            <div class="radio-item" data-val="Moins de 80 000 FCFA">
+              <div class="rk-ico"></div>&lt; 80k FCFA
+            </div>
+            <div class="radio-item" data-val="80 000 – 250 000 FCFA">
+              <div class="rk-ico"></div>80k – 250k
+            </div>
+            <div class="radio-item" data-val="250 000 – 600 000 FCFA">
+              <div class="rk-ico"></div>250k – 600k
+            </div>
+            <div class="radio-item" data-val="Plus de 600 000 FCFA">
+              <div class="rk-ico"></div>&gt; 600k
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Description du projet <span>*</span></label>
+          <textarea id="be-desc" rows="4" maxlength="600" oninput="countChars(this,'be-cc')"
+            placeholder="Décrivez l'objectif du projet, les modules principaux, les intégrations nécessaires, le contexte (B2B, B2C, interne...)..."></textarea>
+          <div class="char-count" id="be-cc">0 / 600</div>
+        </div>
+
+        <div class="form-submit-row">
+          <span class="form-note">Envoi direct sur WhatsApp</span>
+          <button class="submit-btn" onclick="sendWhatsApp('backend')">Envoyer le cahier des charges →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+     SCRIPTS
+══════════════════════════════ -->
+  <script>
+    const WA = '2250151185932';
+
+    /* ── Cursor ── */
+    const cur = document.getElementById('cur'), ring = document.getElementById('cur-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cur.style.transform = `translate(${mx}px,${my}px) translate(-50%,-50%)`;
+    });
+    (function loop() { rx += (mx - rx) * .12; ry += (my - ry) * .12; ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`; requestAnimationFrame(loop) })();
+    document.querySelectorAll('a,button,.why-card,.check-item,.radio-item').forEach(el => {
+      el.addEventListener('mouseenter', () => { cur.style.transform += ` scale(2)`; ring.style.opacity = '0' });
+      el.addEventListener('mouseleave', () => { cur.style.transform = cur.style.transform.replace(/ scale\(2\)/, ''); ring.style.opacity = '1' });
+    });
+
+    /* ── Scroll reveal ── */
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target) } });
+    }, { threshold: .1 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    /* ── Bar animation ── */
+    const barObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('.bar-fill').forEach(b => { b.style.width = b.dataset.w + '%' });
+          barObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: .2 });
+    const barSec = document.getElementById('s-bars');
+    if (barSec) barObs.observe(barSec);
+
+    /* ── Sidebar active ── */
+    const sids = ['s-frontend', 's-design', 's-mobile', 's-backend', 's-bars'];
+    const sbtns = document.querySelectorAll('.skill-nav-btn');
+    window.addEventListener('scroll', () => {
+      sids.forEach((id, i) => {
+        const el = document.getElementById(id); if (!el) return;
+        const r = el.getBoundingClientRect();
+        if (r.top < 200 && r.bottom > 0) { sbtns.forEach(b => b.classList.remove('active')); sbtns[i]?.classList.add('active'); }
+      });
+    }, { passive: true });
+
+    function scrollTo(id) { document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }
+
+    /* ── Navbar ── */
+    const nb = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { nb.style.background = window.scrollY > 40 ? 'rgba(10,10,10,.98)' : 'rgba(10,10,10,.88)'; }, { passive: true });
+
+    /* ── MODAL ── */
+    function openModal(type) {
+      document.getElementById('modal-' + type)?.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(type) {
+      document.getElementById('modal-' + type)?.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    // Close on overlay click
+    document.querySelectorAll('.modal-overlay').forEach(o => {
+      o.addEventListener('click', e => { if (e.target === o) closeModal(o.id.replace('modal-', '')) });
+    });
+    // Escape key
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(o => o.classList.remove('open')) });
+
+    /* ── Toggle checkboxes ── */
+    document.querySelectorAll('.check-item').forEach(item => {
+      item.addEventListener('click', () => item.classList.toggle('checked'));
+    });
+    /* ── Radio items ── */
+    document.querySelectorAll('.radio-group').forEach(grp => {
+      grp.querySelectorAll('.radio-item').forEach(item => {
+        item.addEventListener('click', () => {
+          grp.querySelectorAll('.radio-item').forEach(r => r.classList.remove('selected'));
+          item.classList.add('selected');
+        });
+      });
+    });
+
+    /* ── Char counter ── */
+    function countChars(el, counterId) {
+      const cc = document.getElementById(counterId); if (!cc) return;
+      const len = el.value.length, max = el.getAttribute('maxlength') || 600;
+      cc.textContent = `${len} / ${max}`;
+      cc.classList.toggle('near', len > max * 0.8);
+    }
+
+    /* ── Get value helper ── */
+    function getRadioVal(groupId) {
+      const sel = document.querySelector(`#${groupId} .radio-item.selected`);
+      return sel ? sel.dataset.val : 'Non précisé';
+    }
+    function getCheckVals(groupId) {
+      const items = [...document.querySelectorAll(`#${groupId} .check-item.checked`)];
+      return items.length ? items.map(i => i.dataset.val).join(', ') : 'Aucun sélectionné';
+    }
+    function getInput(id) { return (document.getElementById(id)?.value || '').trim() || 'Non renseigné' }
+
+    /* ── SEND WHATSAPP ── */
+    function sendWhatsApp(type) {
+      let msg = '';
+
+      if (type === 'frontend') {
+        const name = getInput('fe-name'), phone = getInput('fe-phone'), email = getInput('fe-email');
+        if (!document.getElementById('fe-name').value.trim() || !document.getElementById('fe-phone').value.trim() || !document.getElementById('fe-desc').value.trim()) {
+          alert('Veuillez remplir les champs obligatoires (Nom, WhatsApp, Description).'); return;
+        }
+        msg = `🌐 *CAHIER DES CHARGES – FRONTEND*\n`
+          + `━━━━━━━━━━━━━━━━━━━━\n`
+          + `👤 *Client :* ${name}\n`
+          + `📱 *WhatsApp :* ${phone}\n`
+          + `📧 *Email :* ${email}\n\n`
+          + `📋 *Type de site :* ${getRadioVal('fe-type')}\n`
+          + `🏢 *Secteur :* ${getInput('fe-secteur')}\n`
+          + `⚙️ *Fonctionnalités :* ${getCheckVals('fe-features')}\n`
+          + `🎨 *Logo/Charte :* ${getRadioVal('fe-logo')}\n`
+          + `💰 *Budget :* ${getRadioVal('fe-budget')}\n`
+          + `⏱️ *Délai :* ${getRadioVal('fe-delai')}\n\n`
+          + `📝 *Description :*\n${getInput('fe-desc')}\n`
+          + `━━━━━━━━━━━━━━━━━━━━\n`
+          + `_Envoyé depuis angetech.ci_`;
+      }
+      else if (type === 'design') {
+        if (!document.getElementById('ds-name').value.trim() || !document.getElementById('ds-phone').value.trim() || !document.getElementById('ds-desc').value.trim()) {
+          alert('Veuillez remplir les champs obligatoires (Nom, WhatsApp, Description).'); return;
+        }
+        msg = `🎨 *CAHIER DES CHARGES – DESIGN UI/UX*\n`
+          + `━━━━━━━━━━━━━━━━━━━━\n`
+          + `👤 *Client :* ${getInput('ds-name')}\n`
+          + `📱 *WhatsApp :* ${getInput('ds-phone')}\n\n`
+          + `🎯 *Prestation :* ${getCheckVals('ds-type')}\n`
+          + `📐 *Nombre d\'écrans :* ${getRadioVal('ds-screens')}\n`
+          + `🖌️ *Style souhaité :* ${getCheckVals('ds-style')}\n`
+          + `💻 *Supports cibles :* ${getCheckVals('ds-device')}\n`
+          + `🔗 *Références :* ${getInput('ds-refs')}\n`
+          + `💰 *Budget :* ${getRadioVal('ds-budget')}\n\n`
+          + `📝 *Description :*\n${getInput('ds-desc')}\n`
+          + `━━━━━━━━━━━━━━━━━━━━\n`
+          + `_Envoyé depuis angetech.ci_`;
+      }
+      else if (type === 'mobile') {
+        if (!document.getElementById('mb-name').value.trim() || !document.getElementById('mb-phone').value.trim() || !document.getElementById('mb-desc').value.trim()) {
+          alert('Veuillez remplir les champs obligatoires (Nom, WhatsApp, Description).'); return;
+        }
+        msg = `📱 *CAHIER DES CHARGES – APPLICATION MOBILE*\n`
+          + `━━━━━━━━━━━━━━━━━━━━\n`
+          + `👤 *Client :* ${getInput('mb-name')}\n`
+          + `📱 *WhatsApp :* ${getInput('mb-phone')}\n\n`
+          + `📲 *Type d\'app :* ${getRadioVal('mb-type')}\n`
+          + `🏷️ *Catégorie :* ${getCheckVals('mb-cat')}\n`
+          + `⚙️ *Fonctionnalités :* ${getCheckVals('mb-features')}\n`
+          + `👥 *Utilisateurs cibles :* ${getRadioVal('mb-users')}\n`
+          + `💰 *Budget :* ${getRadioVal('mb-budget')}\n\n`
+          + `📝 *Description :*\n${getInput('mb-desc')}\n`
+          + `━━━━━━━━━━━━━━━━━━━━\n`
+          + `_Envoyé depuis angetech.ci_`;
+      }
+      else if (type === 'backend') {
+        if (!document.getElementById('be-name').value.trim() || !document.getElementById('be-phone').value.trim() || !document.getElementById('be-desc').value.trim()) {
+          alert('Veuillez remplir les champs obligatoires (Nom, WhatsApp, Description).'); return;
+        }
+        msg = `⚙️ *CAHIER DES CHARGES – BACKEND / APP WEB*\n`
+          + `━━━━━━━━━━━━━━━━━━━━\n`
+          + `👤 *Client :* ${getInput('be-name')}\n`
+          + `📱 *WhatsApp :* ${getInput('be-phone')}\n\n`
+          + `🔧 *Type de projet :* ${getCheckVals('be-type')}\n`
+          + `🛠️ *Stack souhaitée :* ${getCheckVals('be-stack')}\n`
+          + `⚙️ *Fonctionnalités :* ${getCheckVals('be-features')}\n`
+          + `🌐 *Hébergement :* ${getRadioVal('be-hosting')}\n`
+          + `💰 *Budget :* ${getRadioVal('be-budget')}\n\n`
+          + `📝 *Description :*\n${getInput('be-desc')}\n`
+          + `━━━━━━━━━━━━━━━━━━━━\n`
+          + `_Envoyé depuis angetech.ci_`;
+      }
+
+      const url = `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
+      window.open(url, '_blank');
+      closeModal(type);
+    }
+  </script>
+</body>
+
+</html>
